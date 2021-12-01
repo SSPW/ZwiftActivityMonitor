@@ -429,6 +429,9 @@ namespace ZwiftActivityMonitorV2
 
                 File.WriteAllText(FileName, json);
 
+                string jsonSplits = JsonConvert.SerializeObject(_uncommittedZAMsettings.SplitsV2, Formatting.Indented);
+                File.WriteAllText(FileName+".Splits", jsonSplits);
+
                 //_logger.LogDebug($"In CommitCachedConfiguration:\n{json}");
 
                 _committedZAMsettings = _uncommittedZAMsettings;

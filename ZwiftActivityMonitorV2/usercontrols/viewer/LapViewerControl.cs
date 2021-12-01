@@ -9,11 +9,16 @@ using System.Linq;
 using System.ComponentModel;
 using System.Windows.Threading;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace ZwiftActivityMonitorV2
 {
     public partial class LapViewerControl : ViewerControlEx
     {
+
+        private const string FileName = "Laps.json";
+
         private enum DetailColumn
         {
             LapNumber = 0,
@@ -110,6 +115,9 @@ namespace ZwiftActivityMonitorV2
                         return p1.LapNumber.CompareTo(p2.LapNumber);
                     }
                 );
+
+                string jsonLaps= JsonConvert.SerializeObject(list, Formatting.Indented);
+                File.WriteAllText("Laps.json", jsonLaps);
 
                 return list.ToArray();
             }
